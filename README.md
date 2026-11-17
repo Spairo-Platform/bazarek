@@ -11,7 +11,7 @@ Pokazuje, jaka część Twojego zużycia idzie na dwie rzeczy, których da się 
 - **długa historia rozmowy**: przy każdej wiadomości AI czyta od nowa całą rozmowę, więc w długim wątku każda wiadomość kosztuje więcej;
 - **wznowienia po przerwie**: po dłuższej przerwie albo zmianie modelu cała rozmowa wczytuje się od nowa, kilkanaście razy drożej niż zwykle.
 
-Dostajesz werdykt, top rozmowy, w których uciekło najwięcej, i trend z ostatnich 4 tygodni. W aplikacji Claude wynik jest interaktywny: suwakiem ustawiasz, jak długie rozmowy chcesz prowadzić, i od razu widzisz, ile byś zaoszczędził(a).
+Dostajesz werdykt, top rozmowy, w których uciekło najwięcej, i trend z ostatnich 4 tygodni. W aplikacjach Claude i Codex wynik jest interaktywny: suwakiem ustawiasz, jak długie rozmowy chcesz prowadzić, i od razu widzisz, ile byś zaoszczędził(a).
 
 Zapytaj po prostu: „Gdzie tracę limit?” albo „Czemu tak szybko kończy mi się limit?”.
 

@@ -387,6 +387,9 @@ def main():
     ap.add_argument("--szczegoly", action="store_true", help="lista wszystkich powrotów po przerwie")
     ap.add_argument("--json", action="store_true", help="dane dla interaktywnego komponentu")
     ap.add_argument("--widget", action="store_true", help="gotowy kod komponentu z suwakiem (HTML z danymi)")
+    ap.add_argument("--styl", choices=["claude", "codex"],
+                    help="kolory komponentu: claude (show_widget) albo codex (wizualizacje w aplikacji Codex); domyślnie wg --zrodlo")
+    ap.add_argument("--wyjscie", help="zapisz komponent do pliku zamiast wypisywać go na ekran")
     ap.add_argument("--project", help="fragment nazwy folderu projektu")
     ap.add_argument("--min-context", type=int, default=20_000)
     ap.add_argument("--threshold", type=float, default=0.5)
@@ -423,7 +426,17 @@ def main():
         sz = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "assets", "komponent.html")
         dane = json.dumps(dane_json(SESJE, teraz + timedelta(seconds=1), a), ensure_ascii=False,
                           separators=(",", ":")).replace("</", "<\\/")
-        sys.stdout.write(open(sz, encoding="utf-8").read().replace("/*DANE*/null", dane))
+        html = open(sz, encoding="utf-8").read().replace("/*DANE*/null", dane)
+        if (a.styl or ("codex" if a.zrodlo == "codex" else "claude")) == "codex":
+            for x, y in STYL_CODEX:
+                html = html.replace(x, y)
+        if a.wyjscie:
+            os.makedirs(os.path.dirname(os.path.abspath(a.wyjscie)), exist_ok=True)
+            with open(a.wyjscie, "w", encoding="utf-8") as f:
+                f.write(html)
+            print(a.wyjscie)
+        else:
+            sys.stdout.write(html)
         return
     if a.json:
         json.dump(dane_json(SESJE, teraz + timedelta(seconds=1), a), sys.stdout, ensure_ascii=False,
@@ -436,6 +449,14 @@ def main():
         print()
         szczegoly(w)
 
+
+# Zmienne motywu Claude (show_widget) → zmienne motywu aplikacji Codex (wtyczka visualize).
+STYL_CODEX = [
+    ("var(--surface-1)", "var(--muted)"), ("var(--surface-3)", "var(--popover)"),
+    ("var(--text-secondary)", "var(--muted-foreground)"), ("var(--text-muted)", "var(--muted-foreground)"),
+    ("var(--text-primary)", "var(--foreground)"), ("var(--border-strong)", "var(--border)"),
+    ("var(--radius)", "10px"), ("#2a78d6", "var(--blue)"), ("#eb6834", "var(--orange)"),
+]
 
 SESJE = {}
 ZRODLO = "claude"

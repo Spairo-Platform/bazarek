@@ -11,7 +11,17 @@ Skrypt leży w folderze tego skilla: `scripts/gdzie_tracisz_limit.py`. Uruchamia
 
 **Źródło logów.** W Claude Code skrypt sam czyta logi Claude Code. **W Codexie zawsze dodawaj `--zrodlo codex`.** `--zrodlo oba` łączy oba źródła, tylko gdy ktoś o to poprosi.
 
-## Wariant interaktywny (tylko Claude, gdy jest narzędzie `show_widget`)
+## Wariant interaktywny w aplikacji Codex
+
+Gdy działasz w Codexie, a wśród folderów z prawem zapisu jest folder wizualizacji tego wątku (ścieżka zawiera `/.codex/visualizations/`), pokaż komponent z suwakiem zamiast tekstu:
+
+1. Uruchom skrypt z `--zrodlo codex --widget --wyjscie <folder wizualizacji wątku>/gdzie-tracisz-limit.html`. Skrypt sam dopasuje kolory do motywu Codexa i wypisze ścieżkę zapisanego pliku. Pliku nie edytuj.
+2. W odpowiedzi umieść w osobnej linii dokładnie: `visualize{"path":"<pełna ścieżka z kroku 1>"}`
+3. Pod nią napisz najwyżej dwa zdania: werdykt i jedną radę, jak w wariancie z Claude niżej. Nie wspominaj o pliku, HTML ani o tym, jak powstał komponent.
+
+Bez folderu wizualizacji (np. Codex w terminalu) użyj wariantu tekstowego.
+
+## Wariant interaktywny w Claude (gdy jest narzędzie `show_widget`)
 
 Gdy masz narzędzie `mcp__visualize__show_widget` (także jako narzędzie odroczone, które trzeba załadować), pokaż komponent z suwakiem zamiast tekstu. Użytkownik sam ustawia suwakiem „Rozmowa najwyżej do” i widzi osobno straty od długiej historii i od wznowień po przerwie, top 5 rozmów i trend 4 tygodni.
 
@@ -19,7 +29,7 @@ Gdy masz narzędzie `mcp__visualize__show_widget` (także jako narzędzie odrocz
 2. Uruchom skrypt z `--widget` i przekaż cały wynik **bez zmian** jako `widget_code` do `show_widget` (title: `gdzie_tracisz_limit`). Komponent domyślnie pokazuje ostatnie 4 tygodnie. `--days` i `--project` działają tak samo jak w wersji tekstowej.
 3. Pod komponentem napisz najwyżej dwa zdania: werdykt dla domyślnego ustawienia suwaka (200 tys., ok. 350 stron) (z karty „Razem”: poniżej 10% → nie ma co walczyć, poniżej 25% → warto poprawić, wyżej → dużo do odzyskania) i jedną radę z listy niżej. Liczb z komponentu nie powtarzaj.
 
-W Codexie i wszędzie, gdzie tego narzędzia nie ma, użyj wariantu tekstowego.
+Gdy żaden wariant interaktywny nie jest dostępny, użyj wariantu tekstowego.
 
 ## Wariant tekstowy
 
