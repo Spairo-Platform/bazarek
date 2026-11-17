@@ -1,6 +1,7 @@
 ---
 name: gdzie-trace-limit
 description: Pokazuje w kilku linijkach, ile limitu użytkownik traci przez długą historię rozmów i wznowienia po przerwie, w których rozmowach najwięcej i jak to się zmienia w ostatnich tygodniach. Działa w Claude Code i w Codexie. Użyj, gdy ktoś pyta, czemu nie prowadzić wszystkiego w jednym wątku, dlaczego szybko kończy mu się limit, ile traci na powrotach do starych rozmów albo gdzie ucieka mu limit.
+compatibility: Claude Code i Codex uruchomione na komputerze użytkownika (aplikacja desktop lub terminal), z Pythonem 3. Nie działa w przeglądarce, w telefonie ani w sesjach zdalnych i w chmurze, bo czyta lokalne logi rozmów.
 ---
 
 # Gdzie tracę limit
@@ -8,6 +9,8 @@ description: Pokazuje w kilku linijkach, ile limitu użytkownik traci przez dłu
 Odbiorca jest zwykle nietechniczny, np. uczestnik szkolenia. Odpowiedź ma być **krótka**: wynik skryptu, najwyżej jedna rada i krótki komentarz do trendu. Bez wstępów, bez wyjaśniania metody, bez żargonu (cache, kontekst). Słowo „token” tylko z wyjaśnieniem, że to kawałek tekstu, którym AI mierzy długość rozmowy. Nazwy strat: „długa historia rozmowy” i „wznowienia po przerwie”.
 
 Skrypt leży w folderze tego skilla: `scripts/gdzie_trace_limit.py`. Uruchamiaj go pełną ścieżką, np. `python3 -I <folder skilla>/scripts/gdzie_trace_limit.py`. Czyta tylko lokalne logi na tym komputerze i niczego nie wysyła.
+
+**Gdzie to działa.** Tylko w Claude Code albo Codexie uruchomionym na komputerze użytkownika. Jeśli nie możesz uruchamiać poleceń albo działasz w sesji zdalnej lub w chmurze (claude.ai lub ChatGPT w przeglądarce, telefon, Cowork, zdalna sesja Claude Code, Codex w chmurze), nie uruchamiaj skryptu. Odpowiedz jednym zdaniem: ten skill działa tylko w Claude Code albo Codexie na Twoim komputerze, bo liczy z rozmów zapisanych na nim, więc tu nie ma czego policzyć.
 
 **Źródło logów.** W Claude Code skrypt sam czyta logi Claude Code. **W Codexie zawsze dodawaj `--zrodlo codex`.** `--zrodlo oba` łączy oba źródła, tylko gdy ktoś o to poprosi.
 

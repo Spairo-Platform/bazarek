@@ -49,6 +49,7 @@ Zapytaj po prostu: „Gdzie tracę limit?” albo „Czemu tak szybko kończy mi
 
 **Ograniczenia.**
 
+- Działa tylko w Claude Code i Codexie na Twoim komputerze (aplikacja desktop lub terminal). W przeglądarce, w telefonie i w sesjach zdalnych nie ma czego policzyć. W ChatGPT plugin jest oznaczony jako „Desktop only”.
 - Widzi tylko rozmowy z Claude Code i Codexa. Rozmów na claude.ai i w ChatGPT w przeglądarce nie widać, bo nie zostawiają lokalnych logów.
 - Wynik to szacunek oparty na proporcjach cen API, a nie odczyt limitu. Mówi, jaka część zużycia poszła na straty, a nie ile procent limitu tygodniowego.
 
