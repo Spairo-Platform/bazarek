@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Gdzie tracisz limit: długa historia rozmów i wznowienia po przerwie.
+"""Gdzie tracę limit: długa historia rozmów i wznowienia po przerwie.
 
 Czyta lokalne logi Claude Code (~/.claude/projects) albo Codexa (~/.codex/sessions)
 i liczy dwa źródła strat:

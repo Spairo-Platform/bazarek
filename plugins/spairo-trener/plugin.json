@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "spairo-trener",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Trener nawyków pracy z AI. Pokazuje, gdzie tracisz limit przez długie rozmowy i wznowienia po przerwie, i co zmienić. Działa w Claude Code i w Codexie, czyta tylko lokalne logi.",
   "author": {
     "name": "Spairo",
