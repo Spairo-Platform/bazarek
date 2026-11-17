@@ -15,8 +15,8 @@ Skrypt leży w folderze tego skilla: `scripts/gdzie_tracisz_limit.py`. Uruchamia
 
 Gdy działasz w Codexie, a wśród folderów z prawem zapisu jest folder wizualizacji tego wątku (ścieżka zawiera `/.codex/visualizations/`), pokaż komponent z suwakiem zamiast tekstu:
 
-1. Uruchom skrypt z `--zrodlo codex --widget --wyjscie <folder wizualizacji wątku>/gdzie-tracisz-limit.html`. Skrypt sam dopasuje kolory do motywu Codexa i wypisze ścieżkę zapisanego pliku. Pliku nie edytuj.
-2. W odpowiedzi umieść w osobnej linii dokładnie: `visualize{"path":"<pełna ścieżka z kroku 1>"}`
+1. Uruchom skrypt z `--zrodlo codex --widget --wyjscie <folder wizualizacji wątku>/gdzie-tracisz-limit.html`. Skrypt sam dopasuje kolory do motywu Codexa i wypisze jedną linię: gotowe odwołanie do okienka. Pliku nie edytuj.
+2. Skopiuj tę linię do odpowiedzi **znak w znak**, w osobnej linii. Zawiera niewidoczne znaki sterujące (U+E200 przed `visualize`, U+E202 przed `{`, U+E201 na końcu), bez których Codex pokaże zwykły tekst zamiast okienka. Nie przepisuj jej z pamięci. Wzór: visualize{"path":"<pełna ścieżka>"}
 3. Pod nią napisz najwyżej dwa zdania: werdykt i jedną radę, jak w wariancie z Claude niżej. Nie wspominaj o pliku, HTML ani o tym, jak powstał komponent.
 
 Bez folderu wizualizacji (np. Codex w terminalu) użyj wariantu tekstowego.

@@ -427,14 +427,20 @@ def main():
         dane = json.dumps(dane_json(SESJE, teraz + timedelta(seconds=1), a), ensure_ascii=False,
                           separators=(",", ":")).replace("</", "<\\/")
         html = open(sz, encoding="utf-8").read().replace("/*DANE*/null", dane)
-        if (a.styl or ("codex" if a.zrodlo == "codex" else "claude")) == "codex":
+        codex = (a.styl or ("codex" if a.zrodlo == "codex" else "claude")) == "codex"
+        if codex:
             for x, y in STYL_CODEX:
                 html = html.replace(x, y)
         if a.wyjscie:
             os.makedirs(os.path.dirname(os.path.abspath(a.wyjscie)), exist_ok=True)
             with open(a.wyjscie, "w", encoding="utf-8") as f:
                 f.write(html)
-            print(a.wyjscie)
+            sciezka = os.path.abspath(a.wyjscie)
+            if codex:
+                # Odwołanie do okienka w aplikacji Codex; znaki U+E200/E202/E201 są niewidoczne, ale wymagane.
+                print("\ue200visualize\ue202" + json.dumps({"path": sciezka}, ensure_ascii=False, separators=(",", ":")) + "\ue201")
+            else:
+                print(sciezka)
         else:
             sys.stdout.write(html)
         return
