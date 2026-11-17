@@ -55,12 +55,15 @@ function rysuj() {
   document.getElementById('uc-dni').textContent = (okres.charAt(0).toUpperCase() + okres.slice(1)).replace(/^Z /, 'Dane z ') + (u < 0.1 ? '. To niewiele, nawyków nie trzeba zmieniać.' : '. Jeśli dobijasz do tygodniowego limitu, bez tych strat starczałby na ok. ' + dni.toFixed(1).replace('.', ',') + ' dnia dłużej.');
   const top = O.sesje.map(s => ({...s, d: s.dl[i], r: s.dl[i] + s.pc})).sort((a, b) => b.r - a.r).slice(0, 5).filter(s => s.r > 0.005 * K);
   const mx = Math.max(...top.map(s => s.r), 1);
-  document.getElementById('uc-top').innerHTML = top.length ? top.map(s =>
+  // Zawsze 5 wierszy tej samej wysokości, żeby okienko nie zmieniało rozmiaru przy ruszaniu suwakiem.
+  const pusty = j => '<div class="uc-row"><span style="color:var(--text-muted)">' + (j === 0 && !top.length ? 'Przy tej długości nic istotnego nie ucieka.' : '&nbsp;') +
+    '<br><span style="font-size:12px">&nbsp;</span></span><span></span><span></span></div>';
+  document.getElementById('uc-top').innerHTML = top.map(s =>
     '<div class="uc-row"><span title="' + esc(s.n) + '" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + esc(s.n) +
     '<br><span style="font-size:12px;color:var(--text-muted)">rozmowa do ' + tys(s.mx) + ' tokenów' + (s.pw ? ', ' + s.pw + '× wznowienie po przerwie' : '') + '</span></span>' +
     '<span class="uc-bar"><span style="width:' + (100 * s.d / mx) + '%;background:#2a78d6"></span><span style="width:' + (100 * s.pc / mx) + '%;background:#eb6834;margin-left:' + (s.d && s.pc ? 2 : 0) + 'px"></span></span>' +
-    '<span style="text-align:right;font-variant-numeric:tabular-nums">' + pct(s.r / K) + '</span></div>').join('')
-    : '<p style="font-size:14px;color:var(--text-secondary);margin:8px 0">Przy tym progu nic istotnego nie ucieka.</p>';
+    '<span style="text-align:right;font-variant-numeric:tabular-nums">' + pct(s.r / K) + '</span></div>').join('') +
+    [0, 1, 2, 3, 4].slice(top.length).map(pusty).join('');
   const T = D.tygodnie, mk = Math.max(...T.map(t => t.koszt), 1);
   const ud = T.map(t => t.koszt >= 0.1 * mk ? {d: t.dl[i] / t.koszt, p: t.pc / t.koszt} : null);
   const skala = Math.max(0.1, ...ud.filter(Boolean).map(x => x.d + x.p));
