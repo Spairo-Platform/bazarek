@@ -21,7 +21,7 @@
 <p id="uc-dni" style="font-size:14px;color:var(--text-secondary);margin:0 0 1.5rem">&nbsp;</p>
 <p style="font-size:15px;font-weight:500;margin:0 0 14px" id="uc-top-lab">Gdzie uciekło najwięcej</p>
 <div id="uc-top" style="margin-bottom:1.5rem"></div>
-<p style="font-size:15px;font-weight:500;margin:0 0 10px">Tydzień po tygodniu <span style="font-size:13px;font-weight:400;color:var(--text-secondary)">część zużycia do odzyskania</span></p>
+<p style="font-size:15px;font-weight:500;margin:0 0 10px">Tydzień po tygodniu <span style="font-size:13px;font-weight:400;color:var(--text-secondary)">ile zużycia dało się odzyskać</span></p>
 <div id="uc-tyg" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;align-items:end;height:150px"></div>
 <div style="margin:1.5rem 0 0.5rem;padding-top:1rem;border-top:0.5px solid var(--border)">
   <p style="font-size:15px;font-weight:500;margin:0 0 10px">Ile zaoszczędzisz, trzymając rozmowy krótsze?</p>
@@ -43,7 +43,8 @@ const pct = x => (Math.round(x * 1000) / 10).toFixed(1).replace('.', ',') + '%';
 const tys = n => n >= 1e6 ? (n / 1e6).toFixed(1).replace('.', ',') + ' mln' : Math.round(n / 1000) + ' tys.';
 const esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const okres = !D.dni ? 'z całej historii' : D.dni === 7 ? 'z ostatniego tygodnia' : D.dni % 7 === 0 ? 'z ostatnich ' + D.dni / 7 + ' tygodni' : 'z ostatnich ' + D.dni + ' dni';
-document.getElementById('uc-top-lab').innerHTML = 'Gdzie uciekło najwięcej <span style="font-size:13px;font-weight:400;color:var(--text-secondary)">część zużycia ' + okres + '</span>';
+const okresW = !D.dni ? 'w całej historii' : D.dni === 7 ? 'w ostatnim tygodniu' : D.dni % 7 === 0 ? 'w ostatnich ' + D.dni / 7 + ' tygodniach' : 'w ostatnich ' + D.dni + ' dniach';
+document.getElementById('uc-top-lab').innerHTML = 'Gdzie uciekło najwięcej <span style="font-size:13px;font-weight:400;color:var(--text-secondary)">' + okresW + '</span>';
 function rysuj() {
   const i = +sl.value, P = D.progi[i], O = D.okres, K = O.koszt || 1;
   document.getElementById('uc-prog-out').innerHTML = 'ok. ' + Math.round(P / 570 / 10) * 10 + ' stron <span style="font-weight:400;color:var(--text-secondary)">(' + tys(P) + ' tokenów)</span>';
