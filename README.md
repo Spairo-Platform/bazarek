@@ -1,10 +1,40 @@
-# Spairo Trener
+# Spairo Community
 
-Skille, które patrzą, jak pracujesz z AI, i podpowiadają, co zmienić. Działają w **Claude Code** i w **Codexie**.
+Otwarte pluginy Spairo do pracy z AI. Działają w **Claude Code** i w **Codexie**.
 
-## Skille
+## Instalacja
 
-### `gdzie-trace-limit`
+Najpierw dodaj marketplace, potem instaluj z niego pluginy.
+
+**Claude Code**
+
+```bash
+claude plugin marketplace add Spairo-Platform/spairo-community
+```
+
+```bash
+claude plugin install spairo-trener@spairo-community
+```
+
+**Codex**
+
+```bash
+codex plugin marketplace add Spairo-Platform/spairo-community
+```
+
+```bash
+codex plugin add spairo-trener@spairo-community
+```
+
+Możesz też zainstalować pluginy z listy pluginów w aplikacji Codex.
+
+## Pluginy
+
+### Spairo Trener (`spairo-trener`)
+
+Skille, które patrzą, jak pracujesz z AI, i podpowiadają, co zmienić.
+
+#### `gdzie-trace-limit`
 
 Pokazuje, jaka część Twojego zużycia idzie na dwie rzeczy, których da się uniknąć:
 
@@ -13,39 +43,11 @@ Pokazuje, jaka część Twojego zużycia idzie na dwie rzeczy, których da się 
 
 Dostajesz werdykt, top rozmowy, w których uciekło najwięcej, i trend z ostatnich 4 tygodni. W aplikacjach Claude i Codex wynik jest interaktywny: suwakiem ustawiasz, jak długie rozmowy chcesz prowadzić, i od razu widzisz, ile byś zaoszczędził(a).
 
-Zapytaj po prostu: „Gdzie tracę limit?” albo „Czemu tak szybko kończy mi się limit?”.
+Zapytaj po prostu: „Gdzie tracę limit?” albo „Czemu tak szybko kończy mi się limit?”. W Claude Code skill wywołasz też wprost: `/spairo-trener:gdzie-trace-limit`.
 
-## Instalacja
+**Prywatność.** Skrypt czyta tylko lokalne logi na Twoim komputerze (`~/.claude/projects` albo `~/.codex/sessions`) i niczego nie wysyła. Do działania wystarczy Python 3, bez dodatkowych bibliotek.
 
-**Claude Code**
-
-```bash
-claude plugin marketplace add Spairo-Platform/spairo-trener
-```
-
-```bash
-claude plugin install spairo-trener@spairo-trener
-```
-
-Skill wywołasz też wprost: `/spairo-trener:gdzie-trace-limit`.
-
-**Codex**
-
-```bash
-codex plugin marketplace add Spairo-Platform/spairo-trener
-```
-
-```bash
-codex plugin add spairo-trener@spairo-trener
-```
-
-Możesz też zainstalować plugin **Spairo Trener** z listy pluginów w aplikacji Codex.
-
-## Prywatność
-
-Skrypt czyta tylko lokalne logi na Twoim komputerze (`~/.claude/projects` albo `~/.codex/sessions`) i niczego nie wysyła. Do działania wystarczy Python 3, bez dodatkowych bibliotek.
-
-## Ograniczenia
+**Ograniczenia.**
 
 - Widzi tylko rozmowy z Claude Code i Codexa. Rozmów na claude.ai i w ChatGPT w przeglądarce nie widać, bo nie zostawiają lokalnych logów.
 - Wynik to szacunek oparty na proporcjach cen API, a nie odczyt limitu. Mówi, jaka część zużycia poszła na straty, a nie ile procent limitu tygodniowego.

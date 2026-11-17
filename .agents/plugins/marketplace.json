@@ -1,7 +1,7 @@
 {
-  "name": "spairo-trener",
+  "name": "spairo-community",
   "interface": {
-    "displayName": "Spairo Trener"
+    "displayName": "Spairo Community"
   },
   "plugins": [
     {
