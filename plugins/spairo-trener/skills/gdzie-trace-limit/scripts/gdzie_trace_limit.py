@@ -13,7 +13,7 @@ logi nie widzą rozmów w przeglądarce ani dodatkowych resetów limitu.
 Nic nie jest wysyłane: skrypt tylko czyta pliki na tym komputerze.
 
 Użycie:
-  python3 -I gdzie_tracisz_limit.py [--zrodlo auto|claude|codex|oba] [--days 7] [--tygodnie 4] [--widget]
+  python3 -I gdzie_trace_limit.py [--zrodlo auto|claude|codex|oba] [--days 7] [--tygodnie 4] [--widget]
 """
 import argparse, glob, json, os, sys
 from datetime import datetime, timedelta, timezone

@@ -1,13 +1,13 @@
 ---
-name: gdzie-tracisz-limit
+name: gdzie-trace-limit
 description: Pokazuje w kilku linijkach, ile limitu użytkownik traci przez długą historię rozmów i wznowienia po przerwie, w których rozmowach najwięcej i jak to się zmienia w ostatnich tygodniach. Działa w Claude Code i w Codexie. Użyj, gdy ktoś pyta, czemu nie prowadzić wszystkiego w jednym wątku, dlaczego szybko kończy mu się limit, ile traci na powrotach do starych rozmów albo gdzie ucieka mu limit.
 ---
 
-# Gdzie tracisz limit
+# Gdzie tracę limit
 
 Odbiorca jest zwykle nietechniczny, np. uczestnik szkolenia. Odpowiedź ma być **krótka**: wynik skryptu, najwyżej jedna rada i krótki komentarz do trendu. Bez wstępów, bez wyjaśniania metody, bez żargonu (cache, kontekst). Słowo „token” tylko z wyjaśnieniem, że to kawałek tekstu, którym AI mierzy długość rozmowy. Nazwy strat: „długa historia rozmowy” i „wznowienia po przerwie”.
 
-Skrypt leży w folderze tego skilla: `scripts/gdzie_tracisz_limit.py`. Uruchamiaj go pełną ścieżką, np. `python3 -I <folder skilla>/scripts/gdzie_tracisz_limit.py`. Czyta tylko lokalne logi na tym komputerze i niczego nie wysyła.
+Skrypt leży w folderze tego skilla: `scripts/gdzie_trace_limit.py`. Uruchamiaj go pełną ścieżką, np. `python3 -I <folder skilla>/scripts/gdzie_trace_limit.py`. Czyta tylko lokalne logi na tym komputerze i niczego nie wysyła.
 
 **Źródło logów.** W Claude Code skrypt sam czyta logi Claude Code. **W Codexie zawsze dodawaj `--zrodlo codex`.** `--zrodlo oba` łączy oba źródła, tylko gdy ktoś o to poprosi.
 
@@ -15,7 +15,7 @@ Skrypt leży w folderze tego skilla: `scripts/gdzie_tracisz_limit.py`. Uruchamia
 
 Gdy działasz w Codexie, a wśród folderów z prawem zapisu jest folder wizualizacji tego wątku (ścieżka zawiera `/.codex/visualizations/`), pokaż komponent z suwakiem zamiast tekstu:
 
-1. Uruchom skrypt z `--zrodlo codex --widget --wyjscie <folder wizualizacji wątku>/gdzie-tracisz-limit.html`. Skrypt sam dopasuje kolory do motywu Codexa i wypisze jedną linię: gotowe odwołanie do okienka. Pliku nie edytuj.
+1. Uruchom skrypt z `--zrodlo codex --widget --wyjscie <folder wizualizacji wątku>/gdzie-trace-limit.html`. Skrypt sam dopasuje kolory do motywu Codexa i wypisze jedną linię: gotowe odwołanie do okienka. Pliku nie edytuj.
 2. Skopiuj tę linię do odpowiedzi **znak w znak**, w osobnej linii. Zawiera niewidoczne znaki sterujące (U+E200 przed `visualize`, U+E202 przed `{`, U+E201 na końcu), bez których Codex pokaże zwykły tekst zamiast okienka. Nie przepisuj jej z pamięci. Wzór: visualize{"path":"<pełna ścieżka>"}
 3. Pod nią napisz najwyżej dwa zdania: werdykt i jedną radę, jak w wariancie z Claude niżej. Nie wspominaj o pliku, HTML ani o tym, jak powstał komponent.
 
@@ -26,7 +26,7 @@ Bez folderu wizualizacji (np. Codex w terminalu) użyj wariantu tekstowego.
 Gdy masz narzędzie `mcp__visualize__show_widget` (także jako narzędzie odroczone, które trzeba załadować), pokaż komponent z suwakiem zamiast tekstu. Użytkownik sam ustawia suwakiem „Rozmowa najwyżej do” i widzi osobno straty od długiej historii i od wznowień po przerwie, top 5 rozmów i trend 4 tygodni.
 
 1. Wywołaj `mcp__visualize__read_me` z `modules: ["interactive"]` (wymagane przed pierwszym `show_widget`; nie wspominaj o tym użytkownikowi).
-2. Uruchom skrypt z `--widget` i przekaż cały wynik **bez zmian** jako `widget_code` do `show_widget` (title: `gdzie_tracisz_limit`). Komponent domyślnie pokazuje ostatnie 4 tygodnie. `--days` i `--project` działają tak samo jak w wersji tekstowej.
+2. Uruchom skrypt z `--widget` i przekaż cały wynik **bez zmian** jako `widget_code` do `show_widget` (title: `gdzie_trace_limit`). Komponent domyślnie pokazuje ostatnie 4 tygodnie. `--days` i `--project` działają tak samo jak w wersji tekstowej.
 3. Pod komponentem napisz najwyżej dwa zdania: werdykt dla domyślnego ustawienia suwaka (200 tys., ok. 350 stron) (z karty „Razem”: poniżej 10% → nie ma co walczyć, poniżej 25% → warto poprawić, wyżej → dużo do odzyskania) i jedną radę z listy niżej. Liczb z komponentu nie powtarzaj.
 
 Gdy żaden wariant interaktywny nie jest dostępny, użyj wariantu tekstowego.

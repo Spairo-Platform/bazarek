@@ -4,7 +4,7 @@ Skille, które patrzą, jak pracujesz z AI, i podpowiadają, co zmienić. Dział
 
 ## Skille
 
-### `gdzie-tracisz-limit`
+### `gdzie-trace-limit`
 
 Pokazuje, jaka część Twojego zużycia idzie na dwie rzeczy, których da się uniknąć:
 
@@ -27,7 +27,7 @@ claude plugin marketplace add Spairo-Platform/spairo-trener
 claude plugin install spairo-trener@spairo-trener
 ```
 
-Skill wywołasz też wprost: `/spairo-trener:gdzie-tracisz-limit`.
+Skill wywołasz też wprost: `/spairo-trener:gdzie-trace-limit`.
 
 **Codex**
 
