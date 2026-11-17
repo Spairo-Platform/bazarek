@@ -1,0 +1,20 @@
+{
+  "name": "spairo-trener",
+  "interface": {
+    "displayName": "Spairo Trener"
+  },
+  "plugins": [
+    {
+      "name": "spairo-trener",
+      "source": {
+        "source": "local",
+        "path": "./plugins/spairo-trener"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

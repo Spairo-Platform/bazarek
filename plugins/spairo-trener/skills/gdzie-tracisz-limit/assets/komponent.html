@@ -1,0 +1,76 @@
+<style>
+.uc-row{display:grid;grid-template-columns:minmax(0,1fr) 160px 52px;gap:12px;align-items:center;padding:8px 0;border-top:0.5px solid var(--border);font-size:14px}
+.uc-bar{display:flex;height:10px;border-radius:2px;overflow:hidden;background:var(--surface-1)}
+.uc-sw{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+.uc-card{position:relative;background:var(--surface-1);border-radius:var(--radius);padding:1rem}
+.uc-i{color:var(--text-muted);font-size:15px;margin-left:4px;vertical-align:-2px;cursor:help}
+.uc-tip{visibility:hidden;opacity:0;position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:2;background:var(--surface-3);border:0.5px solid var(--border-strong);border-radius:var(--radius);padding:10px 12px;font-size:13px;line-height:1.5;color:var(--text-secondary);font-weight:400;white-space:normal;transition:opacity .12s}
+.uc-has:hover .uc-tip,.uc-has:focus-within .uc-tip{visibility:visible;opacity:1}
+.uc-lab{font-size:13px;color:var(--text-secondary);margin:0 0 4px}
+.uc-val{font-size:24px;font-weight:500;margin:0}
+</style>
+<h2 class="sr-only">Interaktywne podsumowanie strat limitu przez długą historię rozmów i wznowienia po przerwie, z suwakiem progu długości wątku.</h2>
+<p style="text-align:center;font-size:20px;font-weight:500;margin:0 0 1.25rem">Gdzie tracisz limit</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:0.5rem">
+  <div class="uc-card"><p class="uc-lab uc-has"><span class="uc-sw" style="background:#2a78d6"></span>Długa historia rozmowy<i class="ti ti-info-circle uc-i" tabindex="0" aria-label="Wyjaśnienie"></i><span class="uc-tip">Przy każdej wiadomości AI czyta od nowa całą dotychczasową rozmowę. Im dłuższa, tym droższa każda kolejna wiadomość, nawet krótka. Tu liczymy czytanie ponad długość ustawioną suwakiem na dole: tyle dałoby się zaoszczędzić, przenosząc się w tym momencie do nowego wątku z podsumowaniem.</span></p><p class="uc-val" id="uc-dl">–</p></div>
+  <div class="uc-card"><p class="uc-lab uc-has"><span class="uc-sw" style="background:#eb6834"></span>Wznowienia po przerwie<i class="ti ti-info-circle uc-i" tabindex="0" aria-label="Wyjaśnienie"></i><span class="uc-tip">Przez jakiś czas rozmowa jest w szybkiej pamięci i jej czytanie jest tanie. Po dłuższej przerwie albo po zmianie modelu AI wczytuje całą rozmowę od nowa, <span class="uc-mn">ok. 10–20</span>× drożej. Liczymy tę nadwyżkę. Nie zależy od suwaka na dole.</span></p><p class="uc-val" id="uc-pw">–</p></div>
+  <div class="uc-card"><p class="uc-lab uc-has">Razem do odzyskania<i class="ti ti-info-circle uc-i" tabindex="0" aria-label="Wyjaśnienie"></i><span class="uc-tip" style="left:auto;width:min(260px,200%)">Część Twojego zużycia z wybranego okresu, której dało się uniknąć. To szacunek: nie obejmuje rozmów prowadzonych w przeglądarce.</span></p><p class="uc-val" id="uc-raz">–</p></div>
+</div>
+<p id="uc-dni" style="font-size:14px;color:var(--text-secondary);margin:0 0 1.5rem">&nbsp;</p>
+<p style="font-size:15px;font-weight:500;margin:0 0 14px" id="uc-top-lab">Gdzie uciekło najwięcej</p>
+<div id="uc-top" style="margin-bottom:1.5rem"></div>
+<p style="font-size:15px;font-weight:500;margin:0 0 10px">Tydzień po tygodniu <span style="font-size:13px;font-weight:400;color:var(--text-secondary)">część zużycia do odzyskania</span></p>
+<div id="uc-tyg" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;align-items:end;height:150px"></div>
+<div style="margin:1.5rem 0 0.5rem;padding-top:1rem;border-top:0.5px solid var(--border)">
+  <p style="font-size:15px;font-weight:500;margin:0 0 10px">Ile zaoszczędzisz, trzymając rozmowy krótsze?</p>
+  <div style="position:relative;display:flex;align-items:center;gap:12px">
+    <label for="uc-prog" class="uc-has" style="font-size:14px;color:var(--text-secondary);white-space:nowrap">Rozmowa najwyżej do<i class="ti ti-info-circle uc-i" tabindex="0" aria-label="Wyjaśnienie"></i><span class="uc-tip" style="top:auto;bottom:calc(100% + 6px);right:auto;width:min(420px,90vw)">Przesuń suwak i zobacz, ile byś zaoszczędził(a), gdyby żadna rozmowa nie urosła ponad tę długość: karty u góry i lista przeliczą się od razu. Długość rozmowy AI mierzy w tokenach, czyli kawałkach tekstu (ok. 570 tokenów to strona). Tę liczbę pokazuje licznik w aplikacji, np. „120k”. Nowa rozmowa ma już na starcie kilkadziesiąt stron, bo AI dostaje swoje instrukcje i narzędzia.</span></label>
+    <input type="range" id="uc-prog" min="0" max="22" step="1" value="6" style="flex:1;min-width:80px" />
+    <span id="uc-prog-out" style="font-size:14px;font-weight:500;text-align:right;white-space:nowrap">ok. 350 stron <span style="font-weight:400;color:var(--text-secondary)">(200 tys. tokenów)</span></span>
+  </div>
+</div>
+<div style="display:flex;justify-content:center;margin:1.5rem 0 0.25rem;color:var(--text-primary)"><svg viewBox="-456.35621 -151.43223 502.72119 169.99199" height="34" role="img" aria-label="Spairo" style="display:block"><path fill="currentColor" d="m -369.4,-45.5 v -64 h 10 10 v 5.5 5.5 l 5.2,-4 c 6.4,-4.9 9.7,-6.5 17.3,-8.5 7.4,-1.9 12.5,-1.9 19.8,-0 8.7,2.3 15.5,6.1 22.4,12.8 9.5,9.1 14.2,20.5 14.3,34.2 0,19.3 -10.2,35.6 -27.5,44.1 -7.8,3.8 -8.2,3.9 -18.9,3.9 -10.3,0 -11.4,-0.2 -17.6,-3.1 -3.6,-1.7 -8.5,-4.8 -10.7,-6.8 l -4.1,-3.7 -0.3,23.8 -0.3,23.8 -9.8,0.3 -9.8,0.3 z m 63.2,8.6 c 10.1,-5.9 15.2,-14.8 15.2,-26.6 0,-6.2 -0.4,-8.5 -2.8,-13.2 -6.6,-13.6 -20.8,-19.6 -35.7,-15.2 -7,2.1 -15.6,10.5 -18.2,17.9 -5.7,16.2 2.1,33.2 18,39.1 6.2,2.3 17.8,1.3 23.5,-2 z m -120.2,20.3 c -5.1,-0.4 -11.3,-1.8 -15.5,-3.4 -7.6,-2.9 -14.5,-7 -14.5,-8.6 0,-0.6 1.8,-4.2 4.1,-8.1 4,-6.8 4.1,-6.9 6.2,-5.4 10.7,7.7 26.2,11.6 34.4,8.5 4.8,-1.8 8.3,-5.9 8.3,-9.6 0,-5.9 -4.8,-9 -19.8,-12.9 -22.5,-5.8 -31.3,-14 -31.2,-29.1 0,-5.6 2.9,-12.6 6.8,-16.7 10.4,-11 36.4,-12.9 55.4,-4 3.2,1.5 5.8,3.1 5.8,3.6 0,0.5 -1.8,4.2 -4.1,8.3 l -4.1,7.5 -3.1,-1.9 c -5.1,-3.1 -13.5,-5.1 -21.7,-5.1 -9.5,0 -14.3,2.5 -14.8,7.9 -0.6,6 3.1,8.5 18.2,12.5 13.5,3.6 20.8,7 25.4,12.1 10.6,11.5 8.1,30.2 -5.4,39 -7.5,4.9 -17.2,6.7 -30.5,5.5 z m 414,0.3 c -6.1,-1.1 -17.3,-7.4 -23.1,-12.9 -8.9,-8.5 -14,-19.3 -14.7,-31.3 -0.9,-15.1 3.5,-26.7 14,-37.2 19.2,-19.3 50.1,-18.8 69,1 25.3,26.5 13.4,69 -22.2,79.6 -5.1,1.5 -17.1,2 -23.1,0.9 z m 22.8,-20.2 c 5.8,-3 11,-8.5 13.9,-14.8 2.2,-4.8 2.4,-6.4 2.1,-14.1 -0.5,-9.6 -1.8,-12.9 -7.5,-19.3 -5,-5.5 -10.4,-8.1 -18.5,-8.7 -9.5,-0.7 -14.8,1.1 -21.2,6.9 -9.8,8.9 -12.7,22.1 -7.6,35.1 2.6,6.7 9.7,13.7 16.4,16.2 5.8,2.1 17.1,1.5 22.6,-1.3 z m -115.8,-26.6 v -45.6 l 9.7,0.3 9.8,0.3 0.1,3 c 0.2,9.5 -0.1,9.3 5.6,3 6.5,-7.2 11.5,-9.7 20.1,-10.3 l 6.8,-0.5 v 10.6 10.6 h -7.5 c -12.1,0 -19.1,5 -23.6,17 -1.9,5.1 -2,7.3 -1.8,31 l 0.3,25.5 -9.7,0.3 -9.7,0.3 z"/><path fill="#02aedd" d="m -221.7,-16.6 c -10.3,-1.7 -22.6,-10.2 -29.7,-20.6 -9,-13.1 -10.3,-32.5 -3,-47.9 12.3,-26.2 47,-35.1 66.9,-17.1 2.2,2 4.3,3.6 4.6,3.6 0.3,0 0.6,-2.2 0.6,-5 v -5 h 9.8 9.8 v 45 45 h -10 -10 l 0.4,-4 c 0.2,-2.2 0.1,-4.8 -0.3,-5.7 -0.5,-1.4 -1.2,-1.1 -4.4,1.8 -9.8,9.3 -20.2,12.2 -34.6,9.8 z m 23.9,-19.7 c 12.4,-6.4 18.9,-21.5 15.1,-34.7 -2.1,-7.3 -5.3,-12.4 -10.2,-16.3 -6.4,-5 -8.4,-5.7 -16.8,-5.8 -6.5,-0 -8.9,0.4 -12.9,2.3 -10.7,5.3 -16.6,15.1 -16.6,27.4 0,6.4 0.4,8.3 3.1,13.3 4,7.7 6.1,9.8 13.4,13.5 5.5,2.8 6.7,3 13.6,2.6 5,-0.3 8.8,-1.1 11.5,-2.5 z m 54.1,18 c -0.3,-0.3 -0.6,-20.8 -0.6,-45.4 v -44.8 h 10 10 v 45.3 45.3 l -9.4,0.2 c -5.2,0.1 -9.7,-0.1 -10,-0.5 z m -0.4,-98.4 c -1.2,-0.6 -2.2,-1.5 -2.2,-1.9 0,-0.5 -0.8,-0.8 -1.8,-0.8 -2.2,0 -6.2,-4 -6.2,-6.3 0,-0.9 -0.5,-1.9 -1,-2.2 -0.6,-0.3 -1,-1.7 -1,-3 0,-1.3 0.5,-2.7 1,-3 0.6,-0.3 1,-1.9 1,-3.5 0,-1.6 0.5,-3.2 1.1,-3.5 0.6,-0.4 1.5,-1.7 2,-3.1 1.2,-3.2 11.7,-8 14.2,-6.5 1.1,0.7 1.9,0.7 2.3,0.1 1.1,-1.8 6.5,-1 10.5,1.7 2.2,1.4 4,3 4,3.5 0,0.5 0.9,1.8 2,2.9 1.1,1.1 2,3.1 2,4.5 0,1.4 0.6,3.4 1.2,4.5 1,1.6 1,2.4 0,4 -0.7,1.1 -1.2,3.1 -1.2,4.4 0,2.5 -3.2,5.6 -5.8,5.6 -0.8,0 -2.5,0.9 -3.9,2 -2.9,2.3 -5.5,2.5 -8.3,0.8 -1.5,-1 -2.2,-1 -3.2,0 -1.5,1.5 -3.5,1.5 -6.6,0 z m 6.2,-2.4 c 2.7,-1 1.7,-2.9 -1.6,-2.9 -1.8,0 -3.4,-0.6 -3.6,-1.4 -0.3,-1 0,-1.2 1.2,-0.8 0.9,0.3 2.6,0.3 3.8,-0.2 1.9,-0.7 1.6,-0.9 -1.9,-1.5 -4.3,-0.7 -5.6,-1.8 -6.8,-5.4 -0.5,-1.6 -0.3,-2.2 0.6,-2.2 0.7,0 1.8,1 2.3,2.2 0.7,1.5 2,2.3 4.2,2.6 l 3.2,0.3 v -9.5 c 0,-5.3 -0.4,-9.8 -1,-10.1 -1.3,-0.8 -8,1.5 -10.3,3.5 -2.5,2.2 -1.2,5 2.3,5 3,0 4.4,1.2 5.5,4.8 0.9,3 -1.6,3.1 -3,0.1 -0.5,-1.2 -2.7,-2.8 -4.9,-3.5 l -3.9,-1.3 0.6,3.4 c 0.5,2.8 0.2,3.5 -1.4,3.9 -2.5,0.6 -1.5,3.7 1.2,3.7 1,0 1.9,0.5 1.9,1 0,0.6 -0.5,1 -1,1 -1.4,0 -1.3,2.7 0.1,3.6 0.6,0.4 1.5,0.1 2.1,-0.7 0.8,-1.2 1,-1.2 1.5,-0 1.6,3.9 5.3,5.8 8.7,4.5 z m -2.4,-22.3 c 0,-0.5 -1.5,-1.1 -3.2,-1.3 -2.6,-0.3 -2.9,-0.5 -1.5,-1.2 2.4,-1.1 6.7,0.1 6.7,1.9 0,0.8 -0.5,1.5 -1,1.5 -0.6,0 -1,-0.4 -1,-0.9 z m 13.7,21 c 1,-1 2.9,-2.1 4.2,-2.2 3.5,-0.5 5.1,-3.6 2.9,-5.3 -2.3,-1.7 -2.2,-2.6 0.2,-2.6 2.9,0 3.4,-1.7 0.9,-3.4 -1.8,-1.3 -2,-1.8 -0.9,-3 1.8,-2.1 0.5,-3.6 -3.2,-3.6 -3,0 -6.8,-2.3 -6.8,-4.2 0,-1.4 2.2,-1 4.2,0.8 1,0.9 2.1,1.4 2.5,1 0.9,-0.9 -1.6,-3.7 -3.2,-3.7 -0.7,0 -1.7,-0.7 -2.2,-1.6 -0.5,-0.9 -1.8,-1.4 -2.8,-1.2 -1.6,0.3 -1.9,1.4 -2.2,6.9 -0.2,5.6 -0.1,6.3 1.1,4.7 1.7,-2.1 2.6,-2.2 2.6,-0.3 0,0.8 -0.9,2.1 -2,2.7 -1.7,1.1 -2,2.3 -2,8.3 0,3.9 0.3,7.4 0.7,7.8 1.3,1.3 4.3,0.7 6,-1.2 z m -4.7,-1.8 c 0,-0.4 0.6,-1.5 1.4,-2.5 1.4,-1.9 6.6,-2.4 6.6,-0.8 0,0.6 -0.8,1 -1.9,1 -1,0 -2.4,0.7 -3.1,1.5 -1.3,1.6 -3,2 -3,0.8 z m -0,-6.2 c 0,-0.5 0.5,-1.2 1,-1.6 0.6,-0.3 1,-1.4 1,-2.5 0,-1 0.7,-2.1 1.6,-2.5 2.2,-0.8 2.7,-0.2 1.5,2.1 -0.5,1 -1.2,2.6 -1.5,3.6 -0.6,1.8 -3.6,2.5 -3.6,0.8 z"/></svg></div>
+<script>
+const D = /*DANE*/null;
+document.querySelectorAll('.uc-mn').forEach(e => e.textContent = D.zrodlo === 'codex' ? 'ok. 10' : D.zrodlo === 'claude' ? 'ok. 20' : 'ok. 10–20');
+const sl = document.getElementById('uc-prog');
+sl.max = D.progi.length - 1;
+sl.value = Math.max(0, D.progi.indexOf(D.domyslny));
+const pct = x => (Math.round(x * 1000) / 10).toFixed(1).replace('.', ',') + '%';
+const tys = n => n >= 1e6 ? (n / 1e6).toFixed(1).replace('.', ',') + ' mln' : Math.round(n / 1000) + ' tys.';
+const esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const okres = !D.dni ? 'z całej historii' : D.dni === 7 ? 'z ostatniego tygodnia' : D.dni % 7 === 0 ? 'z ostatnich ' + D.dni / 7 + ' tygodni' : 'z ostatnich ' + D.dni + ' dni';
+document.getElementById('uc-top-lab').innerHTML = 'Gdzie uciekło najwięcej <span style="font-size:13px;font-weight:400;color:var(--text-secondary)">część zużycia ' + okres + '</span>';
+function rysuj() {
+  const i = +sl.value, P = D.progi[i], O = D.okres, K = O.koszt || 1;
+  document.getElementById('uc-prog-out').innerHTML = 'ok. ' + Math.round(P / 570 / 10) * 10 + ' stron <span style="font-weight:400;color:var(--text-secondary)">(' + tys(P) + ' tokenów)</span>';
+  const dl = O.dl[i] / K, pw = O.pc / K, u = dl + pw;
+  document.getElementById('uc-dl').textContent = pct(dl);
+  document.getElementById('uc-pw').textContent = pct(pw);
+  document.getElementById('uc-raz').textContent = pct(u);
+  const dni = u < 1 ? 7 * u / (1 - u) : 0;
+  document.getElementById('uc-dni').textContent = (okres.charAt(0).toUpperCase() + okres.slice(1)).replace(/^Z /, 'Dane z ') + (u < 0.1 ? '. To niewiele, nawyków nie trzeba zmieniać.' : '. Jeśli dobijasz do tygodniowego limitu, bez tych strat starczałby na ok. ' + dni.toFixed(1).replace('.', ',') + ' dnia dłużej.');
+  const top = O.sesje.map(s => ({...s, d: s.dl[i], r: s.dl[i] + s.pc})).sort((a, b) => b.r - a.r).slice(0, 5).filter(s => s.r > 0.005 * K);
+  const mx = Math.max(...top.map(s => s.r), 1);
+  document.getElementById('uc-top').innerHTML = top.length ? top.map(s =>
+    '<div class="uc-row"><span title="' + esc(s.n) + '" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + esc(s.n) +
+    '<br><span style="font-size:12px;color:var(--text-muted)">rozmowa do ' + tys(s.mx) + ' tokenów' + (s.pw ? ', ' + s.pw + '× wznowienie po przerwie' : '') + '</span></span>' +
+    '<span class="uc-bar"><span style="width:' + (100 * s.d / mx) + '%;background:#2a78d6"></span><span style="width:' + (100 * s.pc / mx) + '%;background:#eb6834;margin-left:' + (s.d && s.pc ? 2 : 0) + 'px"></span></span>' +
+    '<span style="text-align:right;font-variant-numeric:tabular-nums">' + pct(s.r / K) + '</span></div>').join('')
+    : '<p style="font-size:14px;color:var(--text-secondary);margin:8px 0">Przy tym progu nic istotnego nie ucieka.</p>';
+  const T = D.tygodnie, mk = Math.max(...T.map(t => t.koszt), 1);
+  const ud = T.map(t => t.koszt >= 0.1 * mk ? {d: t.dl[i] / t.koszt, p: t.pc / t.koszt} : null);
+  const skala = Math.max(0.1, ...ud.filter(Boolean).map(x => x.d + x.p));
+  document.getElementById('uc-tyg').innerHTML = T.map((t, j) => {
+    const x = ud[j];
+    const h = x ? 100 * (x.d + x.p) / skala : 0;
+    return '<div style="display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end">' +
+      '<span style="font-size:13px;font-variant-numeric:tabular-nums">' + (x ? pct(x.d + x.p) : '–') + '</span>' +
+      '<div style="width:24px;flex-shrink:0;height:' + Math.round(h * 0.9) + 'px;display:flex;flex-direction:column;justify-content:flex-end;gap:' + (x && x.d && x.p ? 2 : 0) + 'px">' +
+      (x ? '<div style="flex:' + x.p + ';background:#eb6834;border-radius:4px 4px 0 0"></div><div style="flex:' + x.d + ';background:#2a78d6;border-radius:' + (x.p ? '0' : '4px 4px 0 0') + '"></div>' : '') +
+      '</div><span style="font-size:12px;color:var(--text-muted)">od ' + t.etykieta + '</span></div>';
+  }).join('');
+}
+sl.addEventListener('input', rysuj);
+rysuj();
+</script>
