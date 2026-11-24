@@ -1,21 +1,21 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
-  "name": "spairo-trener",
+  "name": "bazarek",
   "version": "0.3.5",
   "description": "Trener nawyków pracy z AI. Pokazuje, gdzie tracisz limit przez długie rozmowy i wznowienia po przerwie, i co zmienić. Działa w Claude Code i w Codexie, czyta tylko lokalne logi.",
   "author": {
     "name": "Spairo",
     "url": "https://spairo.pl"
   },
-  "homepage": "https://github.com/Spairo-Platform/spairo-community#readme",
-  "repository": "https://github.com/Spairo-Platform/spairo-community",
+  "homepage": "https://github.com/Spairo-Platform/bazarek#readme",
+  "repository": "https://github.com/Spairo-Platform/bazarek",
   "license": "MIT",
   "keywords": ["polski", "limit", "nawyki", "szkolenia", "claude-code", "codex"],
   "extensions": {
     "com.openai": {
       "requires_local_executor": true,
       "interface": {
-        "displayName": "Spairo Trener",
+        "displayName": "BazAreK",
         "shortDescription": "Gdzie tracę limit?",
         "longDescription": "Trener nawyków pracy z AI. Skill gdzie-trace-limit pokazuje, jaka część zużycia idzie na długie rozmowy i wznowienia po przerwie, w których rozmowach najwięcej i jak to się zmienia z tygodnia na tydzień. Czyta tylko lokalne logi Codexa i niczego nie wysyła.",
         "developerName": "Spairo",

@@ -1,14 +1,14 @@
 {
-  "name": "spairo-community",
+  "name": "bazarek",
   "interface": {
-    "displayName": "Spairo Community"
+    "displayName": "BazAreK"
   },
   "plugins": [
     {
-      "name": "spairo-trener",
+      "name": "bazarek",
       "source": {
         "source": "local",
-        "path": "./plugins/spairo-trener"
+        "path": "./plugins/bazarek"
       },
       "policy": {
         "installation": "AVAILABLE",

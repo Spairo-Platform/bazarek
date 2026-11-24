@@ -1,4 +1,4 @@
-# Spairo Community
+# BazAreK
 
 Otwarte pluginy Spairo do pracy z AI. Działają w **Claude Code** i w **Codexie**.
 
@@ -9,28 +9,28 @@ Najpierw dodaj marketplace, potem instaluj z niego pluginy.
 **Claude Code**
 
 ```bash
-claude plugin marketplace add Spairo-Platform/spairo-community
+claude plugin marketplace add Spairo-Platform/bazarek
 ```
 
 ```bash
-claude plugin install spairo-trener@spairo-community
+claude plugin install bazarek@bazarek
 ```
 
 **Codex**
 
 ```bash
-codex plugin marketplace add Spairo-Platform/spairo-community
+codex plugin marketplace add Spairo-Platform/bazarek
 ```
 
 ```bash
-codex plugin add spairo-trener@spairo-community
+codex plugin add bazarek@bazarek
 ```
 
 Możesz też zainstalować pluginy z listy pluginów w aplikacji Codex.
 
 ## Pluginy
 
-### Spairo Trener (`spairo-trener`)
+### BazAreK (`bazarek`)
 
 Skille, które patrzą, jak pracujesz z AI, i podpowiadają, co zmienić.
 
@@ -43,7 +43,7 @@ Pokazuje, jaka część Twojego zużycia idzie na dwie rzeczy, których da się 
 
 Dostajesz werdykt, top rozmowy, w których uciekło najwięcej, i trend z ostatnich 4 tygodni. W aplikacjach Claude i Codex wynik jest interaktywny: suwakiem ustawiasz, jak długie rozmowy chcesz prowadzić, i od razu widzisz, ile byś zaoszczędził(a).
 
-Zapytaj po prostu: „Gdzie tracę limit?” albo „Czemu tak szybko kończy mi się limit?”. W Claude Code skill wywołasz też wprost: `/spairo-trener:gdzie-trace-limit`.
+Zapytaj po prostu: „Gdzie tracę limit?” albo „Czemu tak szybko kończy mi się limit?”. W Claude Code skill wywołasz też wprost: `/bazarek:gdzie-trace-limit`.
 
 **Prywatność.** Skrypt czyta tylko lokalne logi na Twoim komputerze (`~/.claude/projects` albo `~/.codex/sessions`) i niczego nie wysyła. Do działania wystarczy Python 3, bez dodatkowych bibliotek.
 
