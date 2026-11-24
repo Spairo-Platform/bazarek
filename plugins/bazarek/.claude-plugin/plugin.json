@@ -1,7 +1,7 @@
 {
   "name": "bazarek",
   "displayName": "BazAreK",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "description": "Trener nawyków pracy z AI. Pokazuje, gdzie tracisz limit przez długie rozmowy i wznowienia po przerwie, i co zmienić. Działa w Claude Code i w Codexie, czyta tylko lokalne logi.",
   "author": {
     "name": "Spairo",
@@ -10,5 +10,6 @@
   "homepage": "https://github.com/Spairo-Platform/bazarek#readme",
   "repository": "https://github.com/Spairo-Platform/bazarek",
   "license": "MIT",
-  "keywords": ["polski", "limit", "nawyki", "szkolenia", "claude-code", "codex"]
+  "keywords": ["polski", "limit", "nawyki", "szkolenia", "claude-code", "codex"],
+  "icon": "./assets/spairo-logo.png"
 }
